@@ -24,6 +24,12 @@ io.on('connection', (socket) => {
   });
 });
 
+// evry second send a random color to all connected clients
+setInterval(() => {
+    io.emit('color:update', '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0'));
+}, 1000);
+
+
 // serve static files
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname });
